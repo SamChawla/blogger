@@ -12,4 +12,9 @@
 - [Clean-Blog](https://startbootstrap.com/previews/clean-blog)
 
 ## Sample Blog Schema
+
 - [Blog Schema](https://www.yiiframework.com/doc/blog/1.1/en/start.design)
+
+## Quotes API
+
+- [Typefit Api Quotes](https://type.fit/api/quotes)
