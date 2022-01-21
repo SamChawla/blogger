@@ -42,6 +42,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class CustomUser(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='email address',
@@ -73,7 +74,7 @@ class CustomUser(AbstractBaseUser):
         #   return False
         return True
 
-    def has_module_perm(self, app_label):
+    def has_module_perms(self, app_label):
         return True
 
     @property
