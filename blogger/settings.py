@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     # Local apps
     'accounts',
     'blog',
+
+    # Installed Apps
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'blogger.wsgi.application'
 
