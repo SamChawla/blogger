@@ -4,7 +4,6 @@ from blog.models import Post
 # Create your views here.
 
 def home_view(request, *args, **kwargs):
-    # import pdb;pdb.set_trace()
     posts = Post.objects.filter(status="PUBLISHED")
     context_data = {
         "title": "Home Page | Posts",
