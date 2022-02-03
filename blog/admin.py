@@ -6,6 +6,6 @@ admin.site.register(Tag)
 
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug":("title",)}
-    list_display = ["title", "created_at", "modified_at"]
+    list_display = ["id", "title", "created_at", "modified_at"]
 
 admin.site.register(Post, PostAdmin)
