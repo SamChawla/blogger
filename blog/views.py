@@ -32,7 +32,7 @@ class PostListView(ListView):
     queryset = Post.objects.filter(status="PUBLISHED")
     context_object_name = "posts"
     ordering = ["-modified_at"]
-    paginate_by = 10
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data()
