@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from blog.models import Post
+from django.urls import reverse
+
+from django.template.defaultfilters import slugify
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -13,7 +16,6 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin
     )
 # Create your views here.
-
 
 def home_view(request, *args, **kwargs):
     posts = Post.objects.filter(status="PUBLISHED")
@@ -49,6 +51,50 @@ class PostDetailView(DetailView):
         return data
 
 post_detail_view = PostDetailView.as_view()
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content', 'summary', 'tags', 'status']
+
+    def form_valid(self, form):
+        form.instance.author=self.request.user
+        form.instance.slug=slugify(form.instance.title)
+
+        return super().form_valid(form)
+
+post_create_view = PostCreateView.as_view()
+    
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content', 'summary', 'status', 'tags']
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+    def form_valid(self, form):
+        form.instance.author=self.request.user
+        form.instance.slug=slugify(form.instance.title)
+
+        return super().form_valid(form)
+
+post_update_view = PostUpdateView.as_view()
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+post_delete_view = PostDeleteView.as_view()
 
 
 
